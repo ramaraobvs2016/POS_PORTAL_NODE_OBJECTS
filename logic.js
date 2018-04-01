@@ -89,19 +89,27 @@ function securityViewModel() {
             authHeaders.Authorization = 'Bearer ' + accessToken;
         }
         $.ajax({
-            url: 'http://localhost:5050/persons',
-            type: 'GET',
-            headers: authHeaders
-        }).done(function (resp) {
-            alert('data ' + JSON.stringify(resp));
-            self.Persons(resp);
-        }).error(function (error) {
-            self.responseData('Error Occured ' + error.status);
-        });
+            
+            var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+
+$.ajax({
+       url : 'http://localhost:5050/upload.html',
+       type : 'GET',
+       headers: authHeaders
+       data : formData,
+       processData: false,  // tell jQuery not to process the data
+       contentType: false,  // tell jQuery not to set contentType
+     }).done(function (data) {
+           console.log(data);
+           alert(data);
+               self.Persons(resp);
+          });
     };
- 
   
 };
- 
+
+
+
 var secure = new securityViewModel();
 ko.applyBindings(secure);
