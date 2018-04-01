@@ -110,12 +110,14 @@ $.ajax({
             headers: authHeader 
        data : formData,
        processData: false,  // tell jQuery not to process the data
-       contentType: false,  // tell jQuery not to set contentType
-       success : function(data) {
-           console.log(data);
+       contentType: false,  // tell jQuery not to set contentType     
+                   headers: authHeaders
+        }).done(function (resp) {
+            console.log(data);
            alert(data);
-       }
-      
+        }).error(function (error) {
+            self.responseData('Error Occured ' + error.status);
+        
   
 };
  
